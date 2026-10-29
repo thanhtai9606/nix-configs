@@ -79,6 +79,30 @@ nix flake check
 nix fmt   # alejandra (formatter trong flake)
 ```
 
+## Font chữ (Fira Code)
+
+| Nơi | Cấu hình |
+|-----|----------|
+| **Alacritty** | Terminal mặc định — **FiraCode Nerd Font Mono** (`home-manager/alacritty.nix`) |
+| **Ghostty** | Cài system-wide; font trong `home-manager/fonts.nix` → `~/.config/ghostty/config` |
+| **Neovim / tmux / fish** | Chạy *trong* terminal → dùng font của Alacritty (hoặc Ghostty nếu bạn mở Ghostty) |
+| **Toàn hệ thống** | `fonts.packages` + fontconfig mặc định monospace — `nixos/packages.nix`, `home-manager/fonts.nix` |
+
+**Fira Code** và **FiraCode Nerd Font** đều được cài; Alacritty dùng `FiraCode Nerd Font Mono`, Ghostty vẫn `Fira Code` (`fonts.nix`).
+
+### Font Microsoft & WPS
+
+Cài qua `fonts.packages` trong `nixos/packages.nix` (license **unfree** — flake đã bật `allowUnfree`):
+
+| Gói | Dùng cho |
+|-----|----------|
+| `corefonts` | Arial, Times New Roman, Verdana, Courier New, … |
+| `vista-fonts` | Calibri, Cambria, Consolas, Corbel, Candara, … (Office) |
+| `vista-fonts-chs` / `vista-fonts-cht` | Font Hán cho WPS / tài liệu Trung |
+| `liberation_ttf` | Fallback tương thích metric với MS |
+
+**WPS Office** (nếu cài `wpsoffice` từ nixpkgs) sẽ tìm font theo tên qua fontconfig — không cần cấu hình riêng trong WPS sau khi rebuild. Terminal vẫn ưu tiên Fira Code; sans/serif mặc định desktop ưu tiên Noto rồi Calibri/Arial (xem `home-manager/fonts.nix`).
+
 ## Ghi chú
 
 - User hệ thống: **nemo** (fish, wheel, docker, …) — khai báo trong `nixos/users.nix`.

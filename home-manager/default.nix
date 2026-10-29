@@ -8,6 +8,7 @@
 {
   imports =
     [
+      ./fonts.nix
       ./alacritty.nix
       ./fish.nix
       ./niri.nix

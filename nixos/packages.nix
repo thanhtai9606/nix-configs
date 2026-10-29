@@ -45,11 +45,7 @@
     go
     nodejs
     pnpm
-    dotnet-sdk_7
-    dotnet-sdk_8
-    dotnet-sdk_9
     dotnet-sdk_10
-    dotnet-runtime_7
     dotnet-runtime_8
     dotnet-runtime_9
     dotnet-runtime_10

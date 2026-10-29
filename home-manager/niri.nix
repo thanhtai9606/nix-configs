@@ -60,7 +60,7 @@ in
 
       touchpad {
         tap
-        tap-button-map "lrm"
+        tap-button-map "left-right-middle"
         click-method "clickfinger"
         natural-scroll
         dwt

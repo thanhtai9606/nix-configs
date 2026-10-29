@@ -1,17 +1,25 @@
 {
   pkgs,
+  hostProfile ? "laptop",
+  lib,
   ...
 }:
 
 {
-  imports = [
-    ./alacritty.nix
-    ./fish.nix
-    ./display-kanshi.nix
-    ./niri.nix
-    ./tmux.nix
-    ./neovim.nix
-  ];
+  imports =
+    [
+      ./alacritty.nix
+      ./fish.nix
+      ./niri.nix
+      ./tmux.nix
+      ./neovim.nix
+    ]
+    ++ lib.optionals (hostProfile == "laptop") [
+      ./display-kanshi.nix
+    ]
+    ++ lib.optionals (hostProfile == "desktop") [
+      ./display-kanshi-desktop.nix
+    ];
 
   xdg.enable = true;
 

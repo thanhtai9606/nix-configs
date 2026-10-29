@@ -1,5 +1,5 @@
 {
-  description = "NixOS flake for nemo";
+  description = "NixOS flake for nemo (laptop + desktop)";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -13,23 +13,38 @@
     nixpkgs,
     home-manager,
     ...
-  } @ inputs: {
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
-
-    nixosConfigurations.nemo = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./nixos/configuration.nix
-      ];
+  } @ inputs: let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
     };
 
-    homeConfigurations."nemo@nemo" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
+    mkHost = hostProfile: nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = {
+        inherit inputs hostProfile;
       };
-      extraSpecialArgs = {inherit inputs;};
+      modules = [
+        ./nixos/machines/${hostProfile}.nix
+      ];
+    };
+  in {
+    formatter.x86_64-linux = pkgs.alejandra;
+
+    nixosConfigurations = {
+      laptop = mkHost "laptop";
+      desktop = mkHost "desktop";
+      # Alias for older deploy commands targeting `nemo`.
+      nemo = self.nixosConfigurations.laptop;
+    };
+
+    homeConfigurations.nemo = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      extraSpecialArgs = {
+        inherit inputs;
+        hostProfile = "laptop";
+      };
       modules = [
         ./home-manager
       ];

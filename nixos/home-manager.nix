@@ -1,5 +1,6 @@
 {
   inputs,
+  hostProfile,
   ...
 }:
 
@@ -12,7 +13,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "hm-backup";
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = {inherit inputs hostProfile;};
     users.nemo = import ../home-manager;
   };
 }

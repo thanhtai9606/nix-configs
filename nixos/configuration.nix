@@ -1,11 +1,10 @@
-# System configuration (flake module). Mirrors /etc/nixos on host nemo.
+# Shared system configuration for all hosts (user nemo). Hardware is per-machine.
 {
   config,
   pkgs,
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
     ./boot.nix
     ./networking.nix
     ./desktop.nix

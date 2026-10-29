@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  # Full config from ~/.config/fish (Arch/Garuda); HM must not overwrite config.fish.
+  # Managed fish config; HM must not overwrite config.fish via programs.fish.
   programs.fish.enable = false;
 
   xdg.configFile."fish/config.fish".source = ./fish/config.fish;

@@ -51,6 +51,8 @@ in
     lazygit
     lazydocker
     tmenu
+    fastfetch
+    bat
 
     # VPN (fish alias vpn-becamex uses openconnect)
     openconnect

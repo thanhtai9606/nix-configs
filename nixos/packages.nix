@@ -13,6 +13,7 @@
     starship
     kubectl
     k9s
+    lazygit
 
     # VPN (fish alias vpn-becamex uses openconnect)
     openconnect

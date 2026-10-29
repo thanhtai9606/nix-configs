@@ -73,8 +73,6 @@
     # Microsoft / Office-style (unfree; nixpkgs.config.allowUnfree = true)
     corefonts # Arial, Times New Roman, Verdana, Courier New, …
     vista-fonts # Calibri, Cambria, Consolas, Corbel, Candara, …
-    vista-fonts-chs # 宋体/黑体/… — file .doc/.xlsx tiếng Trung trong WPS
-    vista-fonts-cht # 正黑體/… — bản Traditional (tùy chọn, giữ cho đủ bộ WPS)
     liberation_ttf # fallback metric-compatible khi thiếu font MS
   ];
 }

@@ -1,40 +1,5 @@
 { pkgs, ... }:
 
-let
-  # Not in nixpkgs; https://github.com/dhamidi/tmenu
-  tmenu = pkgs.stdenv.mkDerivation (finalAttrs: {
-    pname = "tmenu";
-    version = "0.1.1";
-    src = pkgs.fetchFromGitHub {
-      owner = "dhamidi";
-      repo = "tmenu";
-      rev = "v${finalAttrs.version}";
-      hash = "sha256-MwA0+Ysdf4ZCwk5bY9CDYf3+ne6Xz+mzxRjVvan+6ZA=";
-    };
-    # Upstream Makefile breaks under GNU make (empty explicit *.o targets).
-    buildPhase = ''
-      runHook preBuild
-      for src in main terminal util textbuffer buffer menu; do
-        script/compile "''${src}.c" "''${src}.o"
-      done
-      script/link tmenu main.o terminal.o textbuffer.o buffer.o menu.o util.o
-      runHook postBuild
-    '';
-    installPhase = ''
-      runHook preInstall
-      install -Dm755 tmenu $out/bin/tmenu
-      install -Dm644 tmenu.1 $out/share/man/man1/tmenu.1
-      runHook postInstall
-    '';
-    meta = with pkgs.lib; {
-      description = "Dynamic fuzzy menu for tty devices";
-      homepage = "https://github.com/dhamidi/tmenu";
-      license = licenses.gpl3Only;
-      platforms = platforms.linux;
-      mainProgram = "tmenu";
-    };
-  });
-in
 {
   environment.systemPackages = with pkgs; [
     # CLI / dev
@@ -50,7 +15,6 @@ in
     k9s
     lazygit
     lazydocker
-    tmenu
     fastfetch
     bat
 

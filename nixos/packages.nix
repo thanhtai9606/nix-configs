@@ -46,6 +46,7 @@
     upower
 
     # Dev / containers / databases
+    vscode
     docker
     docker-compose
     dbeaver-bin

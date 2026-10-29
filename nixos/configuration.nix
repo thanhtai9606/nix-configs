@@ -14,6 +14,7 @@
     ./locale.nix
     ./packages.nix
     ./users.nix
+    ./home-manager.nix
   ];
 
   nixpkgs = {
@@ -27,7 +28,10 @@
 
   nix = {
     settings = {
-      experimental-features = "nix-command flakes";
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       flake-registry = "";
     };
     channel.enable = false;

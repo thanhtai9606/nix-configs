@@ -4,6 +4,7 @@
     enable = true;
     defaultFonts = {
       monospace = [
+        "FiraCode Nerd Font Mono"
         "Fira Code"
         "FiraCode Nerd Font"
         "JetBrainsMono Nerd Font"

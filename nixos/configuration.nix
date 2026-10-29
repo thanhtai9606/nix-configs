@@ -1,7 +1,5 @@
 # System configuration (flake module). Mirrors /etc/nixos on host nemo.
 {
-  inputs,
-  lib,
   config,
   pkgs,
   ...
@@ -17,14 +15,7 @@
     ./home-manager.nix
   ];
 
-  nixpkgs = {
-    overlays = [
-      inputs.self.overlays.additions
-      inputs.self.overlays.modifications
-      inputs.self.overlays.unstable-packages
-    ];
-    config.allowUnfree = true;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   nix = {
     settings = {

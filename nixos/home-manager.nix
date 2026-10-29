@@ -15,8 +15,4 @@
     extraSpecialArgs = {inherit inputs;};
     users.nemo = import ../home-manager;
   };
-  programs.nix-ld.enable = true;
-  programs.firefox.enable = true;
-  programs.niri.enable = true;
-
 }

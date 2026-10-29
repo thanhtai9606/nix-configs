@@ -7,8 +7,6 @@
   services.upower.enable = true;
   services.dbus.enable = true;
 
-  security.pam.services.swaylock = {};
-
   services.greetd = {
     enable = true;
     settings.default_session = {

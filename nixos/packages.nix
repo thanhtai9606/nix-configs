@@ -2,45 +2,38 @@
 
 {
   environment.systemPackages = with pkgs; [
+    # CLI / dev
     vim
-    openconnect
-    (neovim.override {
-      withPython3 = true;
-      extraPython3Packages = (p: with p; [ pynvim ]);
-    })
+    git
+    wget
     eza
-    universal-ctags
-    starship
-    thunar
-    k9s
-    kubectl
     fzf
     ripgrep
+    universal-ctags
+    starship
     nodejs
+    kubectl
+    k9s
+
+    # VPN (fish alias vpn-becamex uses openconnect)
+    openconnect
     networkmanager-openconnect
-    neovim
-    wget
-    git
+
+    # Desktop session (niri + noctalia; details in home-manager/)
+    niri
+    noctalia
+    fuzzel
+    xwayland-satellite
+    pixman
     alacritty
     tmux
-    ghostty
-    gedit
-    btop
-    alacritty
-    sway
-    niri
-    xwayland-satellite
-    swaybg
-    swaylock-effects
-    swayidle
     fish
     wl-clipboard
-    waybar
-    mako
-    fuzzel
-    quickshell
-    noctalia
-    pixman
+    btop
+    thunar
+    firefox
+
+    # Audio / power / display helpers
     wireplumber
     brightnessctl
     pavucontrol

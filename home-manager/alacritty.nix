@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  # Alacritty ≥0.13 uses TOML; settings below match home-manager/alacritty.yml (my-arch-linux).
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [

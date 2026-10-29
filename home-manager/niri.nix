@@ -115,6 +115,7 @@ in
       Ctrl+Alt+D hotkey-overlay-title="Launcher (VM)" { spawn-sh "${noctalia} msg panel-toggle launcher"; }
       Mod+Tab hotkey-overlay-title="Window switcher" { spawn-sh "${noctalia} msg window-switcher"; }
       Mod+Shift+D { spawn-sh "${noctalia} msg panel-open launcher"; }
+      Mod+Q repeat=false hotkey-overlay-title="Close window" { close-window; }
       Mod+Shift+Q repeat=false { close-window; }
       Mod+0 hotkey-overlay-title="Power menu" { spawn "${powerMenu}/bin/nemo-power-menu"; }
       Mod+Shift+E { quit; }

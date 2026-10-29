@@ -12,7 +12,7 @@
     enable = true;
     settings = {
       font = {
-        size = 9.0;
+        size = 10.0;
         normal = {
           family = "Fira Code";
           style = "Regular";

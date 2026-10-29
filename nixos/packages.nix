@@ -18,6 +18,8 @@
     fastfetch
     bat
     qutebrowser
+    hyprshot
+    flameshot
 
     # VPN (fish alias vpn-becamex uses openconnect)
     openconnect

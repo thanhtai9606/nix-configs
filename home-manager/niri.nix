@@ -21,14 +21,25 @@ let
     esac
   '';
 
+  screenshotDir = "${config.home.homeDirectory}/Pictures/Screenshots";
+
+  # Region mode works on Niri; hyprshot window/active modes need Hyprland.
   screenshotRegion = pkgs.writeShellScriptBin "nemo-screenshot-region" ''
     set -euo pipefail
-    ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - \
-      | ${pkgs.swappy}/bin/swappy -f -
+    mkdir -p "${screenshotDir}"
+    exec ${pkgs.hyprshot}/bin/hyprshot -m region -o "${screenshotDir}"
   '';
+
+  flameshot = "${pkgs.flameshot}/bin/flameshot";
 in
 {
   home.file."Pictures/Wallpapers".source = wallpaperDir;
+
+  xdg.configFile."flameshot/flameshot.ini".text = ''
+    [General]
+    savePath=${screenshotDir}
+    showHelp=false
+  '';
 
   home.packages = with pkgs; [
     brightnessctl
@@ -89,9 +100,10 @@ in
 
     prefer-no-csd
 
-    screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+    screenshot-path "${screenshotDir}/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
     spawn-at-startup "swaybg" "-m" "fill" "-i" "${defaultWallpaper}"
+    spawn-at-startup "${flameshot}"
     spawn-at-startup "${noctalia}"
     spawn-at-startup "nm-applet" "--indicator"
     spawn-at-startup "${pkgs.blueman}/bin/blueman-applet"
@@ -183,11 +195,11 @@ in
       Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
       Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
 
-      // Screenshots (grim → swappy) + niri built-ins
-      Print { spawn "${screenshotRegion}/bin/nemo-screenshot-region"; }
-      Mod+Shift+S { spawn "${screenshotRegion}/bin/nemo-screenshot-region"; }
-      Ctrl+Print { screenshot-screen; }
-      Alt+Print { screenshot-window; }
+      // Screenshots: hyprshot (region), flameshot (GUI / full screen), niri (window)
+      Print hotkey-overlay-title="Screenshot region" { spawn "${screenshotRegion}/bin/nemo-screenshot-region"; }
+      Mod+Shift+S hotkey-overlay-title="Screenshot (annotate)" { spawn "${flameshot}" "gui"; }
+      Ctrl+Print hotkey-overlay-title="Screenshot screen" { spawn "${flameshot}" "screen"; }
+      Alt+Print hotkey-overlay-title="Screenshot window" { screenshot-window; }
 
       // Displays
       Mod+Shift+P { spawn "${pkgs.wdisplays}/bin/wdisplays"; }

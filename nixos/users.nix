@@ -3,6 +3,7 @@
 {
   users.users.nemo = {
     isNormalUser = true;
+    shell = pkgs.fish;
     extraGroups = [
       "wheel"
       "networkmanager"

@@ -6,7 +6,7 @@
 {
   imports = [
     ./alacritty.nix
-    ./rofi.nix
+    ./fish.nix
     ./display-kanshi.nix
     ./niri.nix
     ./tmux.nix

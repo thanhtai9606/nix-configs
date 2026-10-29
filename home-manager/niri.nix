@@ -5,22 +5,19 @@ let
   defaultWallpaper = "${wallpaperDir}/alpine-lake.jpg";
 
   terminal = "${config.programs.alacritty.package}/bin/alacritty";
-  rofi = "${config.programs.rofi.package}/bin/rofi";
-  menu = "${rofi} -show drun";
-  rofiWindow = "${rofi} -show window";
-  rofiRun = "${rofi} -show run";
+  noctalia = "${pkgs.noctalia}/bin/noctalia";
 
-  # Super+0 power menu (replaces Sway power mode)
+  # Super+0 power menu (fuzzel dmenu → noctalia session / niri quit)
   powerMenu = pkgs.writeShellScriptBin "nemo-power-menu" ''
     set -euo pipefail
     choice="$(printf 'lock\nsuspend\nexit\nreboot\npoweroff' \
-      | ${pkgs.rofi}/bin/rofi -dmenu -i -p power -no-custom)"
+      | ${pkgs.fuzzel}/bin/fuzzel -d -p power)"
     case "$choice" in
-      lock) exec ${pkgs.swaylock-effects}/bin/swaylock -f ;;
-      suspend) exec systemctl suspend ;;
+      lock) exec ${noctalia} msg session lock ;;
+      suspend) exec ${noctalia} msg session suspend ;;
       exit) exec ${pkgs.niri}/bin/niri msg action quit --skip-confirmation ;;
-      reboot) exec systemctl reboot ;;
-      poweroff) exec systemctl poweroff ;;
+      reboot) exec ${noctalia} msg session reboot ;;
+      poweroff) exec ${noctalia} msg session shutdown ;;
     esac
   '';
 
@@ -95,6 +92,7 @@ in
     screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
     spawn-at-startup "swaybg" "-m" "fill" "-i" "${defaultWallpaper}"
+    spawn-at-startup "${noctalia}"
     spawn-at-startup "nm-applet" "--indicator"
     spawn-at-startup "${pkgs.blueman}/bin/blueman-applet"
 
@@ -112,11 +110,11 @@ in
 
       // Launchers / basics (Sway muscle memory)
       Mod+Return hotkey-overlay-title="Terminal" { spawn "${terminal}"; }
-      Mod+D hotkey-overlay-title="App launcher" { spawn-sh "${menu}"; }
+      Mod+D hotkey-overlay-title="App launcher" { spawn-sh "${noctalia} msg panel-toggle launcher"; }
       Ctrl+Alt+Return hotkey-overlay-title="Terminal (VM)" { spawn "${terminal}"; }
-      Ctrl+Alt+D hotkey-overlay-title="Launcher (VM)" { spawn-sh "${menu}"; }
-      Mod+Tab hotkey-overlay-title="Window switcher" { spawn-sh "${rofiWindow}"; }
-      Mod+Shift+D { spawn-sh "${rofiRun}"; }
+      Ctrl+Alt+D hotkey-overlay-title="Launcher (VM)" { spawn-sh "${noctalia} msg panel-toggle launcher"; }
+      Mod+Tab hotkey-overlay-title="Window switcher" { spawn-sh "${noctalia} msg window-switcher"; }
+      Mod+Shift+D { spawn-sh "${noctalia} msg panel-open launcher"; }
       Mod+Shift+Q repeat=false { close-window; }
       Mod+0 hotkey-overlay-title="Power menu" { spawn "${powerMenu}/bin/nemo-power-menu"; }
       Mod+Shift+E { quit; }

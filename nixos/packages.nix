@@ -17,6 +17,7 @@
     lazydocker
     fastfetch
     bat
+    qutebrowser
 
     # VPN (fish alias vpn-becamex uses openconnect)
     openconnect

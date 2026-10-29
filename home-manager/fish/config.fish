@@ -131,6 +131,7 @@ alias kcu='kubectl config use-context k8s-uat-local'
 alias kcp='kubectl config use-context talos-prod-local'
 alias kaf='kubectl apply -f'
 alias kdf='kubectl delete -f'
+alias lzd='lazydocker'
 
 
 

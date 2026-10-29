@@ -11,8 +11,4 @@
       fcitx5-gtk
     ];
   };
-  # Ghi đè xóa biến GTK_IM_MODULE để tránh cảnh báo trên Wayland
-  environment.sessionVariables = {
-    GTK_IM_MODULE = "";
-  };
 }

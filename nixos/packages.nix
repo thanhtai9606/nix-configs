@@ -37,6 +37,7 @@
     btop
     thunar
     firefox
+    wpsoffice
 
     # Audio / power / display helpers
     wireplumber

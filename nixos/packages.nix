@@ -11,7 +11,6 @@
     ripgrep
     universal-ctags
     starship
-    nodejs
     kubectl
     k9s
 
@@ -38,6 +37,22 @@
     brightnessctl
     pavucontrol
     upower
+
+    # Dev / containers / databases
+    docker
+    docker-compose
+    dbeaver-bin
+    go
+    nodejs
+    pnpm
+    dotnet-sdk_7
+    dotnet-sdk_8
+    dotnet-sdk_9
+    dotnet-sdk_10
+    dotnet-runtime_7
+    dotnet-runtime_8
+    dotnet-runtime_9
+    dotnet-runtime_10
   ];
 
   fonts.packages = with pkgs; [

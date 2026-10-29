@@ -22,14 +22,6 @@ let
   '';
 
   screenshotDir = "${config.home.homeDirectory}/Pictures/Screenshots";
-
-  # Region mode works on Niri; hyprshot window/active modes need Hyprland.
-  screenshotRegion = pkgs.writeShellScriptBin "nemo-screenshot-region" ''
-    set -euo pipefail
-    mkdir -p "${screenshotDir}"
-    exec ${pkgs.hyprshot}/bin/hyprshot -m region -o "${screenshotDir}"
-  '';
-
   flameshot = "${pkgs.flameshot}/bin/flameshot";
 in
 {
@@ -50,7 +42,6 @@ in
     swaybg
     xwayland-satellite
     powerMenu
-    screenshotRegion
   ];
 
   # Declarative niri config (KDL). Validated at runtime by niri.
@@ -195,9 +186,9 @@ in
       Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
       Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
 
-      // Screenshots: hyprshot (region), flameshot (GUI / full screen), niri (window)
-      Print hotkey-overlay-title="Screenshot region" { spawn "${screenshotRegion}/bin/nemo-screenshot-region"; }
-      Mod+Shift+S hotkey-overlay-title="Screenshot (annotate)" { spawn "${flameshot}" "gui"; }
+      // Screenshots: flameshot (region / annotate / screen), niri (window)
+      Print hotkey-overlay-title="Screenshot" { spawn "${flameshot}" "gui"; }
+      Mod+Shift+S hotkey-overlay-title="Screenshot" { spawn "${flameshot}" "gui"; }
       Ctrl+Print hotkey-overlay-title="Screenshot screen" { spawn "${flameshot}" "screen"; }
       Alt+Print hotkey-overlay-title="Screenshot window" { screenshot-window; }
 

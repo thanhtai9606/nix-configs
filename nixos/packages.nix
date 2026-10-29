@@ -46,6 +46,7 @@
     upower
 
     # Dev / containers / databases
+    omnisharp-roslyn
     vscode
     docker
     docker-compose

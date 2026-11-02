@@ -14,6 +14,7 @@
       ./niri.nix
       ./tmux.nix
       ./neovim.nix
+      ./flutter.nix
     ]
     ++ lib.optionals (hostProfile == "laptop") [
       ./display-kanshi.nix

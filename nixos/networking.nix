@@ -17,4 +17,8 @@
 
   services.resolved.enable =  true;
   programs.nm-applet.enable = true;
+
+  networking.extraHosts = ''
+    192.168.103.193 dashboard.becamex.com.vn
+  '';
 }

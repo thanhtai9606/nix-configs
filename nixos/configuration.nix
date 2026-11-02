@@ -17,6 +17,8 @@
 
   nixpkgs.config = {
     allowUnfree = true;
+    # Required for androidenv (Android SDK license — no Android Studio install).
+    android_sdk.accept_license = true;
     # .NET 7 is EOL in nixpkgs but still needed for older projects.
     permittedInsecurePackages = [
       "dotnet-sdk-7.0.410"

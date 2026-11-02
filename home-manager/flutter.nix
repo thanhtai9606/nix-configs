@@ -1,4 +1,5 @@
-# Flutter + Android SDK (cmdline tools only — no Android Studio / emulator by default).
+# Flutter via FVM (pin per project / global) + Android SDK cmdline tools (no Android Studio).
+# Nixpkgs `flutter` stable often lags (e.g. 3.47.4 + Dart 3.13.3); use FVM for app SDK versions.
 {pkgs, ...}: let
   androidComposition = pkgs.androidenv.composeAndroidPackages {
     includeEmulator = false;
@@ -12,7 +13,8 @@
   jdk = pkgs.jdk17;
 in {
   home.packages = with pkgs; [
-    flutter
+    fvm
+    unzip
     androidSdk
     androidComposition.platform-tools
     jdk

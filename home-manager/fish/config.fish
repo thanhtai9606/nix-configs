@@ -25,11 +25,6 @@ if test -d ~/.local/bin
     end
 end
 
-# FVM Flutter SDK — `fvm global install 3.47.9` (prepended so it wins over stale tools).
-if test -d $HOME/fvm/default/bin
-    fish_add_path -m $HOME/fvm/default/bin
-end
-
 # Add depot_tools to PATH
 if test -d ~/Applications/depot_tools
     if not contains -- ~/Applications/depot_tools $PATH
@@ -59,22 +54,6 @@ function __history_previous_command_arguments
     commandline -f history-token-search-backward
   case "*"
     commandline -i '$'
-  end
-end
-
-# Prefer FVM SDK in repo (.fvm) or global (~/.fvm/default via fvm global).
-function flutter --description 'Flutter CLI via FVM'
-  if test -x (pwd)/.fvm/flutter_sdk/bin/flutter
-    (pwd)/.fvm/flutter_sdk/bin/flutter $argv
-  else if test -x $HOME/fvm/default/bin/flutter
-    $HOME/fvm/default/bin/flutter $argv
-  else if type -q fvm
-    echo "Chưa có Flutter SDK. Trong repo: fvm install 3.47.9 && fvm use 3.47.9" >&2
-    echo "Hoặc global: fvm global install 3.47.9" >&2
-    return 1
-  else
-    echo "Cài fvm qua NixOS rebuild, rồi chạy fvm install 3.47.9" >&2
-    return 1
   end
 end
 

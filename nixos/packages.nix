@@ -57,6 +57,7 @@
     docker-compose
     dbeaver-bin
     go
+    gcc # CGO (e.g. media-service / webp)
     gnumake
     nodejs
     pnpm

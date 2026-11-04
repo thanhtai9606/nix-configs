@@ -19,7 +19,9 @@
     bat
     qutebrowser
     google-chrome
-    flameshot
+    grim
+    slurp
+    satty
     yazi
 
     # VPN (fish alias vpn-becamex uses openconnect)
@@ -55,6 +57,7 @@
     docker-compose
     dbeaver-bin
     go
+    gnumake
     nodejs
     pnpm
     dotnet-sdk_10

@@ -22,16 +22,33 @@ let
   '';
 
   screenshotDir = "${config.home.homeDirectory}/Pictures/Screenshots";
-  flameshot = "${pkgs.flameshot}/bin/flameshot";
+
+  # grim+slurp+satty: region/annotate and full desktop work across multiple outputs (unlike Flameshot on niri stable).
+  screenshot = pkgs.writeShellScriptBin "nemo-screenshot" ''
+    set -euo pipefail
+    dir="${screenshotDir}"
+    mkdir -p "$dir"
+    file="$dir/Screenshot from $(date +%Y-%m-%d\ %H-%M-%S).png"
+    case "''${1:-gui}" in
+      gui)
+        exec ${pkgs.satty}/bin/satty \
+          --filename "$file" \
+          --copy-command '${pkgs.wl-clipboard}/bin/wl-copy' \
+          --save-after-copy
+        ;;
+      screen)
+        ${pkgs.grim}/bin/grim "$file"
+        ${pkgs.wl-clipboard}/bin/wl-copy < "$file"
+        ;;
+      *)
+        echo "usage: nemo-screenshot [gui|screen]" >&2
+        exit 1
+        ;;
+    esac
+  '';
 in
 {
   home.file."Pictures/Wallpapers".source = wallpaperDir;
-
-  xdg.configFile."flameshot/flameshot.ini".text = ''
-    [General]
-    savePath=${screenshotDir}
-    showHelp=false
-  '';
 
   home.packages = with pkgs; [
     brightnessctl
@@ -42,6 +59,7 @@ in
     swaybg
     xwayland-satellite
     powerMenu
+    screenshot
   ];
 
   # Declarative niri config (KDL). Validated at runtime by niri.
@@ -94,7 +112,6 @@ in
     screenshot-path "${screenshotDir}/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
     spawn-at-startup "swaybg" "-m" "fill" "-i" "${defaultWallpaper}"
-    spawn-at-startup "${flameshot}"
     spawn-at-startup "${noctalia}"
     spawn-at-startup "nm-applet" "--indicator"
     spawn-at-startup "${pkgs.blueman}/bin/blueman-applet"
@@ -186,10 +203,10 @@ in
       Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
       Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
 
-      // Screenshots: flameshot (region / annotate / screen), niri (window)
-      Print hotkey-overlay-title="Screenshot" { spawn "${flameshot}" "gui"; }
-      Mod+Shift+S hotkey-overlay-title="Screenshot" { spawn "${flameshot}" "gui"; }
-      Ctrl+Print hotkey-overlay-title="Screenshot screen" { spawn "${flameshot}" "screen"; }
+      // Screenshots: nemo-screenshot (region / annotate / full desktop), niri (window)
+      Print hotkey-overlay-title="Screenshot" { spawn "${screenshot}/bin/nemo-screenshot" "gui"; }
+      Mod+Shift+S hotkey-overlay-title="Screenshot" { spawn "${screenshot}/bin/nemo-screenshot" "gui"; }
+      Ctrl+Print hotkey-overlay-title="Screenshot screen" { spawn "${screenshot}/bin/nemo-screenshot" "screen"; }
       Alt+Print hotkey-overlay-title="Screenshot window" { screenshot-window; }
 
       // Displays

@@ -23,6 +23,7 @@
     slurp
     satty
     yazi
+    postman
 
     # VPN (fish alias vpn-becamex uses openconnect)
     openconnect

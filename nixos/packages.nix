@@ -18,6 +18,7 @@
     fastfetch
     bat
     qutebrowser
+    google-chrome
     flameshot
     yazi
 

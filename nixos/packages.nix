@@ -6,6 +6,7 @@
     vim
     git
     wget
+    unzip
     eza
     fzf
     ripgrep

@@ -32,6 +32,13 @@ if test -d ~/Applications/depot_tools
     end
 end
 
+# Add .NET global tools to PATH
+if test -d ~/.dotnet/tools
+    if not contains -- ~/.dotnet/tools $PATH
+        set -p PATH ~/.dotnet/tools
+    end
+end
+
 ## Starship prompt
 if status --is-interactive; and type -q starship
    starship init fish | source

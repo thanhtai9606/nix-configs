@@ -1,6 +1,23 @@
-{ pkgs, ... }:
-
 {
+  pkgs,
+  ...
+}:
+
+let
+  # SDK 10 + ASP.NET/runtime 6–10 so `dotnet run` works for net6.0+ (incl. ASP.NET).
+  dotnet = with pkgs.dotnetCorePackages;
+    combinePackages [
+      sdk_10_0
+      runtime_6_0
+      aspnetcore_6_0
+      runtime_8_0
+      aspnetcore_8_0
+      runtime_9_0
+      aspnetcore_9_0
+      runtime_10_0
+      aspnetcore_10_0
+    ];
+in {
   environment.systemPackages = with pkgs; [
     # CLI / dev
     vim
@@ -63,10 +80,7 @@
     gnumake
     nodejs
     pnpm
-    dotnet-sdk_10
-    dotnet-runtime_8
-    dotnet-runtime_9
-    dotnet-runtime_10
+    dotnet
   ];
 
   fonts.packages = with pkgs; [

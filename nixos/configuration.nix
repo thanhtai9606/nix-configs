@@ -17,10 +17,12 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-    # .NET 7 is EOL in nixpkgs but still needed for older projects.
+    # EOL .NET runtimes/SDKs still needed for older projects.
     permittedInsecurePackages = [
       "dotnet-sdk-7.0.410"
       "dotnet-runtime-7.0.20"
+      "dotnet-runtime-6.0.36"
+      "aspnetcore-runtime-6.0.36"
     ];
   };
 

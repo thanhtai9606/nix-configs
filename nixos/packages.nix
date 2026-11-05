@@ -81,6 +81,8 @@ in {
     nodejs
     pnpm
     dotnet
+    openssl # dotnet dev-certs https --trust (OpenSSL trust store)
+    nssTools # certutil — trust dev cert in Chromium/Firefox NSS DB
   ];
 
   fonts.packages = with pkgs; [

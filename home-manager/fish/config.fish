@@ -32,12 +32,11 @@ if test -d ~/Applications/depot_tools
     end
 end
 
-# Add .NET global tools to PATH
-if test -d ~/.dotnet/tools
-    if not contains -- ~/.dotnet/tools $PATH
-        set -p PATH ~/.dotnet/tools
-    end
+# .NET SDK từ Nix → global tools (dotnet-ef, …) cần DOTNET_ROOT trỏ tới share/dotnet
+if command -vq dotnet
+    set -gx DOTNET_ROOT (path dirname (readlink -f (command -v dotnet)))
 end
+fish_add_path --global $HOME/.dotnet/tools
 
 ## Starship prompt
 if status --is-interactive; and type -q starship

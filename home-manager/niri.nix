@@ -31,8 +31,10 @@ let
     file="$dir/Screenshot from $(date +%Y-%m-%d\ %H-%M-%S).png"
     case "''${1:-gui}" in
       gui)
-        exec ${pkgs.satty}/bin/satty \
-          --filename "$file" \
+        geom="$(${pkgs.slurp}/bin/slurp)" || exit 0
+        ${pkgs.grim}/bin/grim -g "$geom" - | ${pkgs.satty}/bin/satty \
+          --filename - \
+          --output-filename "$file" \
           --copy-command '${pkgs.wl-clipboard}/bin/wl-copy' \
           --save-after-copy
         ;;

@@ -20,6 +20,7 @@ let
 in {
   environment.systemPackages = with pkgs; [
     # CLI / dev
+    lsof
     just
     vim
     git

@@ -31,6 +31,7 @@ in {
     universal-ctags
     starship
     kubectl
+    talosctl
     k9s
     lazygit
     lazydocker

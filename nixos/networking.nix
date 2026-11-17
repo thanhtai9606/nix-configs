@@ -19,7 +19,6 @@
   programs.nm-applet.enable = true;
 
   networking.extraHosts = ''
-    192.168.103.193 dashboard.becamex.com.vn
-    192.168.103.9 luutru-app-uat.becamex.com.vn administration-dev.becamex.com.vn authserver-dev.becamex.com.vn xlnt.becamex.com.vn
+    192.168.103.193 ceph-ai.becamex.com.vn
   '';
 }

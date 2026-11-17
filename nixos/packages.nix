@@ -45,7 +45,6 @@ in {
     satty
     yazi
     postman
-    helm
 
     # VPN (fish alias vpn-becamex uses openconnect)
     openconnect

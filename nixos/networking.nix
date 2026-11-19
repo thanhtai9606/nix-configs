@@ -19,6 +19,7 @@
   programs.nm-applet.enable = true;
 
   networking.extraHosts = ''
+    192.168.103.182 workhub-dev.becamex.com.vn
     192.168.103.193 ceph-ai.becamex.com.vn
   '';
 }
